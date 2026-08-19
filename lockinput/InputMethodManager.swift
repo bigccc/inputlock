@@ -320,10 +320,14 @@ class InputMethodManager: ObservableObject {
     }
 
     private func shouldAllowTemporaryInputSource(_ source: TISInputSource, whileLockedTo lockedInputSourceID: String) -> Bool {
-        guard isKeyboardLayout(source), isASCIICapableInputSource(source) else { return false }
         guard let lockedSource = inputSource(withID: lockedInputSourceID) else { return false }
 
-        return !isKeyboardLayout(lockedSource)
+        return TemporaryInputSourcePolicy.shouldAllowTemporaryASCIILayout(
+            currentIsKeyboardLayout: isKeyboardLayout(source),
+            currentIsASCIICapable: isASCIICapableInputSource(source),
+            lockedIsKeyboardLayout: isKeyboardLayout(lockedSource),
+            isCapsLockEnabled: NSEvent.modifierFlags.contains(.capsLock)
+        )
     }
 
     private func startEnforcementTimer() {

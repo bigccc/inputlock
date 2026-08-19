@@ -77,6 +77,28 @@ final class InputSourceLockStateTests: XCTestCase {
         )
     }
 
+    func testTemporaryASCIIInputIsRejectedWhenCapsLockIsOff() {
+        XCTAssertFalse(
+            TemporaryInputSourcePolicy.shouldAllowTemporaryASCIILayout(
+                currentIsKeyboardLayout: true,
+                currentIsASCIICapable: true,
+                lockedIsKeyboardLayout: false,
+                isCapsLockEnabled: false
+            )
+        )
+    }
+
+    func testTemporaryASCIIInputIsAllowedOnlyWhileCapsLockIsOn() {
+        XCTAssertTrue(
+            TemporaryInputSourcePolicy.shouldAllowTemporaryASCIILayout(
+                currentIsKeyboardLayout: true,
+                currentIsASCIICapable: true,
+                lockedIsKeyboardLayout: false,
+                isCapsLockEnabled: true
+            )
+        )
+    }
+
     private func makeDefaults() -> UserDefaults {
         let suiteName = "InputSourceLockStateTests.\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: suiteName)!
