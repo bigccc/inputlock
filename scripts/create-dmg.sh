@@ -7,7 +7,7 @@ set -e
 
 APP_NAME="LockInput"
 DMG_NAME="LockInput"
-VERSION="1.0"
+VERSION="1.1"
 BUILD_DIR="build/Build/Products/Release"
 APP_PATH="$BUILD_DIR/lockinput.app"
 DMG_PATH="$DMG_NAME-$VERSION.dmg"
