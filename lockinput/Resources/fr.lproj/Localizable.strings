@@ -1,6 +1,7 @@
 /* Status */
 "status.locked" = "Verrouillé";
 "status.unlocked" = "Déverrouillé";
+"status.restoreUnavailable" = "La source de saisie précédemment verrouillée est indisponible";
 
 /* Buttons */
 "button.lock" = "Verrouiller";
@@ -14,6 +15,7 @@
 
 /* Settings */
 "settings.launchAtLogin" = "Lancer au démarrage";
+"settings.restoreLockOnLaunch" = "Restaurer le verrouillage au lancement";
 "settings.language" = "Langue";
 
 /* Languages */

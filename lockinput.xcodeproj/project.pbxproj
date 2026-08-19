@@ -8,6 +8,7 @@
 
 /* Begin PBXFileReference section */
 		554963942EF58F5F00D8D8BE /* lockinput.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lockinput.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10000000000000000000001 /* lockinputTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lockinputTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +17,32 @@
 			path = lockinput;
 			sourceTree = "<group>";
 		};
+		A10000000000000000000002 /* Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Tests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXContainerItemProxy section */
+		A10000000000000000000003 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5549638C2EF58F5F00D8D8BE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 554963932EF58F5F00D8D8BE;
+			remoteInfo = lockinput;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		554963912EF58F5F00D8D8BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A10000000000000000000004 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				554963962EF58F5F00D8D8BE /* lockinput */,
+				A10000000000000000000002 /* Tests */,
 				554963952EF58F5F00D8D8BE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				554963942EF58F5F00D8D8BE /* lockinput.app */,
+				A10000000000000000000001 /* lockinputTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,7 +95,38 @@
 			productReference = 554963942EF58F5F00D8D8BE /* lockinput.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A10000000000000000000005 /* lockinputTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A10000000000000000000006 /* Build configuration list for PBXNativeTarget "lockinputTests" */;
+			buildPhases = (
+				A10000000000000000000007 /* Sources */,
+				A10000000000000000000004 /* Frameworks */,
+				A10000000000000000000008 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A10000000000000000000009 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A10000000000000000000002 /* Tests */,
+			);
+			name = lockinputTests;
+			packageProductDependencies = (
+			);
+			productName = lockinputTests;
+			productReference = A10000000000000000000001 /* lockinputTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
+
+/* Begin PBXTargetDependency section */
+		A10000000000000000000009 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 554963932EF58F5F00D8D8BE /* lockinput */;
+			targetProxy = A10000000000000000000003 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXProject section */
 		5549638C2EF58F5F00D8D8BE /* Project object */ = {
@@ -81,6 +137,9 @@
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					554963932EF58F5F00D8D8BE = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					A10000000000000000000005 = {
 						CreatedOnToolsVersion = 26.2;
 					};
 				};
@@ -104,6 +163,7 @@
 			projectRoot = "";
 			targets = (
 				554963932EF58F5F00D8D8BE /* lockinput */,
+				A10000000000000000000005 /* lockinputTests */,
 			);
 		};
 /* End PBXProject section */
@@ -116,10 +176,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A10000000000000000000008 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		554963902EF58F5F00D8D8BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A10000000000000000000007 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -311,6 +385,32 @@
 			};
 			name = Release;
 		};
+		A1000000000000000000000A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cloudwings.lockinputTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lockinput.app/Contents/MacOS/lockinput";
+			};
+			name = Debug;
+		};
+		A1000000000000000000000B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cloudwings.lockinputTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lockinput.app/Contents/MacOS/lockinput";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -328,6 +428,15 @@
 			buildConfigurations = (
 				554963A02EF58F5F00D8D8BE /* Debug */,
 				554963A12EF58F5F00D8D8BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A10000000000000000000006 /* Build configuration list for PBXNativeTarget "lockinputTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1000000000000000000000A /* Debug */,
+				A1000000000000000000000B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,6 +1,7 @@
 /* Status */
 "status.locked" = "Locked";
 "status.unlocked" = "Unlocked";
+"status.restoreUnavailable" = "Previously locked input source is unavailable";
 
 /* Buttons */
 "button.lock" = "Lock";
@@ -14,6 +15,7 @@
 
 /* Settings */
 "settings.launchAtLogin" = "Launch at Login";
+"settings.restoreLockOnLaunch" = "Restore Lock at Launch";
 "settings.language" = "Language";
 
 /* Languages */

@@ -45,6 +45,12 @@ struct ContentView: View {
                     Text(inputManager.currentInputSourceName)
                         .font(.caption)
                         .foregroundColor(.secondary)
+
+                    if inputManager.didFailStartupLockRestore {
+                        Text("status.restoreUnavailable".localized(with: languageManager))
+                            .font(.caption)
+                            .foregroundColor(.orange)
+                    }
                 }
 
                 Spacer()
@@ -99,6 +105,19 @@ struct ContentView: View {
                 .pickerStyle(.menu)
                 .frame(width: 120)
                 .scaleEffect(0.85)
+            }
+
+            HStack {
+                Toggle(isOn: Binding(
+                    get: { inputManager.isRestoreOnLaunchEnabled },
+                    set: { inputManager.setRestoreOnLaunchEnabled($0) }
+                )) {
+                    Label("settings.restoreLockOnLaunch".localized(with: languageManager), systemImage: "lock.rotation")
+                        .font(.caption)
+                }
+                .toggleStyle(.checkbox)
+
+                Spacer()
             }
 
             HStack {

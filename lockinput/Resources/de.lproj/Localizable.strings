@@ -1,6 +1,7 @@
 /* Status */
 "status.locked" = "Gesperrt";
 "status.unlocked" = "Entsperrt";
+"status.restoreUnavailable" = "Die zuvor gesperrte Eingabequelle ist nicht verfügbar";
 
 /* Buttons */
 "button.lock" = "Sperren";
@@ -14,6 +15,7 @@
 
 /* Settings */
 "settings.launchAtLogin" = "Beim Anmelden starten";
+"settings.restoreLockOnLaunch" = "Sperre beim Start wiederherstellen";
 "settings.language" = "Sprache";
 
 /* Languages */

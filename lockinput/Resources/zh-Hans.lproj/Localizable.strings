@@ -1,6 +1,7 @@
 /* Status */
 "status.locked" = "已锁定";
 "status.unlocked" = "未锁定";
+"status.restoreUnavailable" = "上次锁定的输入法不可用";
 
 /* Buttons */
 "button.lock" = "锁定";
@@ -14,6 +15,7 @@
 
 /* Settings */
 "settings.launchAtLogin" = "开机启动";
+"settings.restoreLockOnLaunch" = "启动时恢复上次锁定";
 "settings.language" = "语言";
 
 /* Languages */

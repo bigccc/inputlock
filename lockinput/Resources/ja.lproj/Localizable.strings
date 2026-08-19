@@ -1,6 +1,7 @@
 /* Status */
 "status.locked" = "ロック中";
 "status.unlocked" = "ロック解除";
+"status.restoreUnavailable" = "前回ロックした入力ソースを利用できません";
 
 /* Buttons */
 "button.lock" = "ロック";
@@ -14,6 +15,7 @@
 
 /* Settings */
 "settings.launchAtLogin" = "ログイン時に起動";
+"settings.restoreLockOnLaunch" = "起動時に前回のロックを復元";
 "settings.language" = "言語";
 
 /* Languages */

@@ -17,16 +17,24 @@ class InputMethodManager: ObservableObject {
     @Published var lockedInputSourceID: String?
     @Published var currentInputSourceName: String = ""
     @Published var availableInputSources: [TISInputSource] = []
+    @Published var isRestoreOnLaunchEnabled: Bool
+    @Published var didFailStartupLockRestore = false
 
     private var lockState = InputSourceLockState()
+    private let startupLockPreferences: StartupLockPreferences
     private var notificationObservers: [NSObjectProtocol] = []
     private var enforcementTimer: Timer?
+    private var startupRestoreTimer: Timer?
+    private var startupRestoreRetryState = StartupLockRestoreRetryState()
     private var isEnforcingLockedSource = false
 
-    init() {
+    init(startupLockPreferences: StartupLockPreferences = StartupLockPreferences()) {
+        self.startupLockPreferences = startupLockPreferences
+        self.isRestoreOnLaunchEnabled = startupLockPreferences.isRestoreOnLaunchEnabled
         loadAvailableInputSources()
         updateCurrentInputSourceName()
         setupInputSourceChangeObservers()
+        restoreStartupLockIfNeeded()
     }
 
     deinit {
@@ -36,6 +44,7 @@ class InputMethodManager: ObservableObject {
             NSWorkspace.shared.notificationCenter.removeObserver(observer)
         }
         enforcementTimer?.invalidate()
+        startupRestoreTimer?.invalidate()
     }
 
     func loadAvailableInputSources() {
@@ -123,8 +132,20 @@ class InputMethodManager: ObservableObject {
 
     func unlock() {
         lockState.unlock()
+        startupLockPreferences.clearSavedLockedInputSource()
+        didFailStartupLockRestore = false
+        stopStartupRestoreTimer()
         syncPublishedLockState()
         stopEnforcementTimer()
+    }
+
+    func setRestoreOnLaunchEnabled(_ enabled: Bool) {
+        startupLockPreferences.isRestoreOnLaunchEnabled = enabled
+        isRestoreOnLaunchEnabled = enabled
+        if !enabled {
+            didFailStartupLockRestore = false
+            stopStartupRestoreTimer()
+        }
     }
 
     func toggle() {
@@ -182,8 +203,65 @@ class InputMethodManager: ObservableObject {
         guard !sourceID.isEmpty else { return }
 
         lockState.lock(inputSourceID: sourceID)
+        startupLockPreferences.saveLockedInputSourceID(sourceID)
+        didFailStartupLockRestore = false
+        stopStartupRestoreTimer()
         syncPublishedLockState()
         startEnforcementTimer()
+    }
+
+    private func restoreStartupLockIfNeeded() {
+        guard startupLockPreferences.restoreCandidateInputSourceID != nil else { return }
+        attemptStartupLockRestore()
+    }
+
+    private func attemptStartupLockRestore() {
+        guard let inputSourceID = startupLockPreferences.restoreCandidateInputSourceID else {
+            stopStartupRestoreTimer()
+            return
+        }
+
+        let didSelectInputSource: Bool
+        if let source = inputSource(withID: inputSourceID) {
+            didSelectInputSource = restoreStartupInputSource(source)
+        } else {
+            didSelectInputSource = false
+        }
+
+        switch startupRestoreRetryState.action(afterInputSourceSelectionSucceeded: didSelectInputSource) {
+        case .restored:
+            stopStartupRestoreTimer()
+        case .retry:
+            scheduleStartupLockRestoreRetry()
+        case .unavailable:
+            didFailStartupLockRestore = true
+            stopStartupRestoreTimer()
+        }
+    }
+
+    private func scheduleStartupLockRestoreRetry() {
+        guard startupRestoreTimer == nil else { return }
+
+        let timer = Timer(timeInterval: 1, repeats: false) { [weak self] _ in
+            guard let self else { return }
+            self.startupRestoreTimer = nil
+            self.attemptStartupLockRestore()
+        }
+        startupRestoreTimer = timer
+        RunLoop.main.add(timer, forMode: .common)
+    }
+
+    private func stopStartupRestoreTimer() {
+        startupRestoreTimer?.invalidate()
+        startupRestoreTimer = nil
+    }
+
+    private func restoreStartupInputSource(_ source: TISInputSource) -> Bool {
+        guard selectInputSource(source) else { return false }
+        lock(source: source)
+        updateCurrentInputSourceName()
+        enforceLockedInputSource()
+        return true
     }
 
     private func syncPublishedLockState() {
